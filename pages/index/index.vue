@@ -8,12 +8,15 @@
 		</view>
 		<!-- #endif -->
 		<IndexSwiper></IndexSwiper>
+		<Recommend></Recommend>
 	</view>
 </template>
 
 <script>
 	// @表示根目录
 	import IndexSwiper from "@/components/index/IndexSwiper.vue"
+	import Recommend from "@/components/index/Recommend.vue"
+	
 	export default {
 		data() {
 			return {
@@ -21,7 +24,8 @@
 			}
 		},
 		components: {
-			IndexSwiper
+			IndexSwiper,
+			Recommend
 		},
 		onLoad() {
 

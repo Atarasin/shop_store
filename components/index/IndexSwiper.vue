@@ -2,17 +2,17 @@
 	<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 		<swiper-item>
 			<view class="swiper-item">
-				<image class="swiper-img" src="../../static/img/Phoenix.png" mode=""></image>
+				<image class="swiper-img" src="../../static/img/swiper1.jpg" mode=""></image>
 			</view>
 		</swiper-item>
 		<swiper-item>
 			<view class="swiper-item">
-				<image class="swiper-img" src="../../static/img/DragonSoars.png" mode=""></image>
+				<image class="swiper-img" src="../../static/img/swiper2.jpg" mode=""></image>
 			</view>
 		</swiper-item>
 		<swiper-item>
 			<view class="swiper-item">
-				<image class="swiper-img" src="../../static/img/JianlongPianfeng.png" mode=""></image>
+				<image class="swiper-img" src="../../static/img/swiper3.jpg" mode=""></image>
 			</view>
 		</swiper-item>
 	</swiper>
