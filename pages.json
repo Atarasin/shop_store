@@ -1,0 +1,93 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "百年奥莱",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// #ifdef MP-WEIXIN 
+				"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					// #ifdef APP || H5
+					"titleNView": {
+						"buttons": [
+							{
+								"float": "left",
+								"fontSrc": "static/iconfont.ttf",
+								"text": "\ue62d"
+							},
+							{
+								"float": "right",
+								"fontSrc": "static/iconfont.ttf",
+								"text": "\ue665"
+							}
+						]
+					}
+					// #endif 
+				}
+			}
+		},
+		{
+			"path" : "pages/list/list",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/shopcart/shopcart",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/my/my",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#0a0720",
+		"selectedColor": "#0a0720",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/index.png",
+				"selectedIconPath": "static/tabbar/index_selected.png"
+			},
+			{
+				"pagePath": "pages/list/list",
+				"text": "分类",
+				"iconPath": "static/tabbar/classify.png",
+				"selectedIconPath": "static/tabbar/classify_selected.png"
+			},
+			{
+				"pagePath": "pages/shopcart/shopcart",
+				"text": "购物车",
+				"iconPath": "static/tabbar/shopCart.png",
+				"selectedIconPath": "static/tabbar/shopCart_selected.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/tabbar/my.png",
+				"selectedIconPath": "static/tabbar/my_selected.png"
+			}
+		]
+	}
+}
