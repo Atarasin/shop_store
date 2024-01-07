@@ -1,12 +1,5 @@
 <template>
 	<view class="content">
-		<!-- #ifdef MP-WEIXIN -->
-		<view class="wx-nav">
-			<view class="iconfont">&#xe62d;</view>
-			<text class="百年奥莱">百年奥莱</text>
-			<view class="iconfont">&#xe665;</view>
-		</view>
-		<!-- #endif -->
 		<scroll-view scroll-x="true" class="scroll-content" :scroll-into-view="scrollIndex">
 			<view
 				:id="'top'+index"
@@ -24,8 +17,7 @@
 				v-for="(item,index) in newTopBar"
 				:key="index"
 			>
-				<!-- view用于获取以下内容高度之和 -->
-				<view class="home-data">
+				<scroll-view scroll-y="true" :style="'height:'+contentHeight+'px;'">
 					<block v-for="(k, i) in item.data" :key="i">
 						<IndexSwiper v-if="k.type==='swiperList'" :dataList="k.data"></IndexSwiper>
 						<template v-if="k.type==='recommendList'">
@@ -34,7 +26,7 @@
 						</template>
 						<CommodityList v-if="k.type==='commodityList'" :dataList="k.data"></CommodityList>
 					</block>
-				</view>
+				</scroll-view>
 			</swiper-item>
 		</swiper>
 		
@@ -85,13 +77,16 @@
 			this.__init();
 		},
 		onReady() {
-			let view = uni.createSelectorQuery().select(".home-data");
-			view.boundingClientRect(data => {
-				this.contentHeight = 2000;
-				/* this.contentHeight = data.height; */
-			}).exec();
+			uni.getSystemInfo({
+				success: (res) => {
+					this.contentHeight = res.windowHeight - // 可视区域整体高度
+						uni.upx2px(80) - 					// 顶栏高度
+						this.getContentHeight();			// 状态栏高度(app)
+				}
+			})
 		},
 		methods: {
+			// 请求首页数据
 			__init() {
 				uni.request({
 					url: "http://127.0.0.1:4523/m1/3871430-0-default/api/index_list/data",
@@ -102,6 +97,7 @@
 					}
 				})
 			},
+			// 添加顶栏对应数据
 			initData(res) {
 				let arr = [];
 				for (let i = 0; i < this.topBar.length; i++) {
@@ -116,13 +112,30 @@
 				}
 				return arr;
 			},
+			// 点击顶栏
 			changeTab(index) {
 				if (this.topBarIndex === index) return;
 				this.topBarIndex = index;
 				this.scrollIndex = 'top' + index;
 			},
+			// 滑动
 			onChangeTab(e) {
 				this.changeTab(e.detail.current)
+			},
+			// 获取可视区域高度【兼容】
+			getContentHeight() {
+				let res = uni.getSystemInfoSync();
+				const system = res.platform;
+				
+				if (system === 'ios') {
+					return 44 + res.statusBarHeight;
+				} 
+				else if (system === 'android') {
+					return 48 + res.statusBarHeight;
+				}
+				else {
+					return 0;
+				}
 			}
 		}
 	}

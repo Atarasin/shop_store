@@ -4,12 +4,9 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "百年奥莱",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				// #ifdef MP-WEIXIN 
-				"navigationStyle": "custom",
-				// #endif 
+				"navigationBarBackgroundColor": "#FFFFFF", 
 				"app-plus": {
-					// #ifdef APP || H5
+					"scrollIndicator":"none",
 					"titleNView": {
 						"buttons": [
 							{
@@ -24,7 +21,6 @@
 							}
 						]
 					}
-					// #endif 
 				}
 			}
 		},
