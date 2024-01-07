@@ -19,12 +19,19 @@
 			</view>
 		</scroll-view>
 		
-		<swiper @change="onChangeTab" :current="topBarIndex">
+		<swiper @change="onChangeTab" :current="topBarIndex"
+			:style="'height:'+contentHeight+'px;'">
 			<swiper-item
 				v-for="(item,index) in topBar"
 				:key="index"
 			>
-				<view>{{item.name}}</view>
+				<!-- view用于获取以下内容高度之和 -->
+				<view class="home-data">
+					<IndexSwiper></IndexSwiper>
+					<Recommend></Recommend>
+					<Card card-title="猜你喜欢"></Card>
+					<CommodityList></CommodityList>
+				</view>
 			</swiper-item>
 		</swiper>
 		
@@ -59,6 +66,8 @@
 				topBarIndex: 0,
 				// 顶栏跟随的索引id值
 				scrollIndex: 'top0',
+				// 内容块的高度值
+				contentHeight: 0,
 				// 顶栏数据
 				topBar: [
 					{name: '推荐'},
@@ -82,6 +91,12 @@
 		},
 		onLoad() {
 
+		},
+		onReady() {
+			let view = uni.createSelectorQuery().select(".home-data");
+			view.boundingClientRect(data => {
+				this.contentHeight = data.height;
+			}).exec();
 		},
 		methods: {
 			changeTab(index) {
