@@ -7,13 +7,15 @@
 			<view class="iconfont">&#xe665;</view>
 		</view>
 		<!-- #endif -->
-		<!-- <IndexSwiper></IndexSwiper>
+<!-- 		<IndexSwiper></IndexSwiper>
 		<Recommend></Recommend>
 		<Card card-title="猜你喜欢"></Card>
 		<CommodityList></CommodityList> -->
 		
 		<Banner></Banner>
 		<Icons></Icons>
+		<Card card-title="热销爆品"></Card>
+		<Hot></Hot>
 		
 	</view>
 </template>
@@ -26,6 +28,7 @@
 	import CommodityList from "@/components/common/CommodityList.vue"
 	import Banner from "@/components/index/Banner.vue"
 	import Icons from "@/components/index/Icons.vue"
+	import Hot from "@/components/index/Hot.vue"
 	
 	export default {
 		data() {
@@ -39,7 +42,8 @@
 			Card,
 			CommodityList,
 			Banner,
-			Icons
+			Icons,
+			Hot
 		},
 		onLoad() {
 
