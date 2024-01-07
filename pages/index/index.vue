@@ -19,26 +19,24 @@
 			</view>
 		</scroll-view>
 		
-		<swiper @change="onChangeTab" :current="topBarIndex"
-			:style="'height:'+contentHeight+'px;'">
+		<swiper @change="onChangeTab" :current="topBarIndex" :style="'height:'+contentHeight+'px;'">
 			<swiper-item
-				v-for="(item,index) in topBar"
+				v-for="(item,index) in newTopBar"
 				:key="index"
 			>
 				<!-- view用于获取以下内容高度之和 -->
 				<view class="home-data">
-					<IndexSwiper></IndexSwiper>
-					<Recommend></Recommend>
-					<Card card-title="猜你喜欢"></Card>
-					<CommodityList></CommodityList>
+					<block v-for="(k, i) in item.data" :key="i">
+						<IndexSwiper v-if="k.type==='swiperList'" :dataList="k.data"></IndexSwiper>
+						<template v-if="k.type==='recommendList'">
+							<Recommend :dataList="k.data"></Recommend>
+							<Card card-title="猜你喜欢"></Card>
+						</template>
+						<CommodityList v-if="k.type==='commodityList'" :dataList="k.data"></CommodityList>
+					</block>
 				</view>
 			</swiper-item>
 		</swiper>
-		
-<!-- 		<IndexSwiper></IndexSwiper>
-		<Recommend></Recommend>
-		<Card card-title="猜你喜欢"></Card>
-		<CommodityList></CommodityList> -->
 		
 <!-- 		<Banner></Banner>
 		<Icons></Icons>
@@ -68,16 +66,10 @@
 				scrollIndex: 'top0',
 				// 内容块的高度值
 				contentHeight: 0,
-				// 顶栏数据
-				topBar: [
-					{name: '推荐'},
-					{name: '运动户外'},
-					{name: '服饰内衣'},
-					{name: '鞋靴箱包'},
-					{name: '美妆个护'},
-					{name: '家具数码'},
-					{name: '食品母婴'},
-				]
+				// 顶栏标签
+				topBar: [],
+				// 顶栏对应的数据
+				newTopBar: []
 			}
 		},
 		components: {
@@ -90,15 +82,40 @@
 			Hot
 		},
 		onLoad() {
-
+			this.__init();
 		},
 		onReady() {
 			let view = uni.createSelectorQuery().select(".home-data");
 			view.boundingClientRect(data => {
-				this.contentHeight = data.height;
+				this.contentHeight = 2000;
+				/* this.contentHeight = data.height; */
 			}).exec();
 		},
 		methods: {
+			__init() {
+				uni.request({
+					url: "http://127.0.0.1:4523/m1/3871430-0-default/api/index_list/data",
+					success: (res) => {
+						let data = res.data.data;
+						this.topBar = data.topBar;
+						this.newTopBar = this.initData(data);
+					}
+				})
+			},
+			initData(res) {
+				let arr = [];
+				for (let i = 0; i < this.topBar.length; i++) {
+					let obj = {
+						data: []
+					};
+					// 获取首页数据
+					if (i == 0) {
+						obj.data = res.data;
+					}
+					arr.push(obj);
+				}
+				return arr;
+			},
 			changeTab(index) {
 				if (this.topBarIndex === index) return;
 				this.topBarIndex = index;

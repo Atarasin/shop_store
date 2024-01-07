@@ -13,8 +13,8 @@
 			<view class="commodity-content">
 				<text class="commodity-name">{{ item.name }}</text>
 				<view class="commodity-price">
-					<text class="now-price">${{item.nowPrice}}</text>
-					<text class="old-price">${{item.oldPrice}}</text>
+					<text class="now-price">¥{{item.nowPrice}}</text>
+					<text class="old-price">¥{{item.oldPrice}}</text>
 				</view>
 				<text class="commodity-discount">{{item.discount}}折</text>
 			</view>
